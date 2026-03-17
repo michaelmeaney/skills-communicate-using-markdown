@@ -28,11 +28,16 @@ jobs:
       ISSUE_URL: ${{ needs.find_exercise.outputs.issue-url }}
 
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594 # v2.16.0
+        with:
+          egress-policy: audit
+
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
       - name: Get response templates
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
@@ -50,14 +55,14 @@ jobs:
       - name: Check if day-1.md file exists
         id: check-file-exists
         continue-on-error: true
-        uses: skills/exercise-toolkit/actions/file-exists@v0.6.0
+        uses: skills/exercise-toolkit/actions/file-exists@ebf43bb96882683e03e667184c6445ed4c8074e6 # v0.6.0
         with:
           file: day-1.md
 
       - name: Check for level 1 header
         id: check-h1
         continue-on-error: true
-        uses: skills/action-keyphrase-checker@v1
+        uses: skills/action-keyphrase-checker@7f463836f6c105e85a182487ae4b628ff61cb904 # v1.1.0
         with:
           text-file: day-1.md
           keyphrase: "# "
@@ -67,7 +72,7 @@ jobs:
       - name: Check for level 2 headers
         id: check-h2
         continue-on-error: true
-        uses: skills/action-keyphrase-checker@v1
+        uses: skills/action-keyphrase-checker@7f463836f6c105e85a182487ae4b628ff61cb904 # v1.1.0
         with:
           text-file: day-1.md
           keyphrase: "## "
@@ -76,7 +81,7 @@ jobs:
 
       - name: Build message - step results
         id: build-message-step-results
-        uses: skills/action-text-variables@v2
+        uses: skills/action-text-variables@3b6c75e091007b8a7660c17071aa2503cccf6af2 # v2.0.1
         with:
           template-file: exercise-toolkit/markdown-templates/step-feedback/step-results-table.md
           template-vars: |
@@ -107,7 +112,7 @@ jobs:
 
       - name: Build message - step finished
         id: build-message-step-finish
-        uses: skills/action-text-variables@v2
+        uses: skills/action-text-variables@3b6c75e091007b8a7660c17071aa2503cccf6af2 # v2.0.1
         with:
           template-file: exercise-toolkit/markdown-templates/step-feedback/step-finished-prepare-next-step.md
           template-vars: |
@@ -129,11 +134,16 @@ jobs:
       ISSUE_URL: ${{ needs.find_exercise.outputs.issue-url }}
 
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594 # v2.16.0
+        with:
+          egress-policy: audit
+
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
       - name: Get response templates
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           repository: skills/exercise-toolkit
           path: exercise-toolkit
